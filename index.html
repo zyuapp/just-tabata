@@ -7,6 +7,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050508">
     <title>Tabata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
         @theme {
@@ -21,6 +24,7 @@
             --color-text-muted: #3a3a4a;
             --color-success: #00e676;
             --color-danger: #ff1744;
+            --font-display: 'Bebas Neue', sans-serif;
         }
 
         body::before {
@@ -102,7 +106,7 @@
 <body class="bg-bg-primary text-text-primary font-sans antialiased flex flex-col min-h-dvh">
     <div class="container relative z-10 flex flex-col flex-1 px-5 py-6 max-w-md mx-auto w-full">
         <header class="flex justify-between items-center pb-4">
-            <div class="font-bold text-3xl tracking-[0.15em]">
+            <div class="font-display text-3xl tracking-[0.15em]">
                 TABATA<span class="text-accent">.</span>
             </div>
             <button id="settingsBtn" class="w-11 h-11 bg-bg-secondary border border-bg-tertiary rounded-xl flex items-center justify-center hover:border-accent hover:bg-accent-dim transition-all cursor-pointer">
@@ -113,13 +117,13 @@
         </header>
 
         <section class="timer-section flex-1 flex flex-col justify-center items-center gap-6 py-5">
-            <div id="phase" class="phase-badge-ready font-bold text-xl tracking-[0.3em] px-6 py-2 bg-bg-secondary border rounded transition-all">
+            <div id="phase" class="phase-badge-ready font-display text-xl tracking-[0.3em] px-6 py-2 bg-bg-secondary border rounded transition-all">
                 GET READY
             </div>
             
             <div class="relative text-center">
                 <div id="timerGlow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-radial-gradient from-accent-glow to-transparent rounded-full opacity-0 pointer-events-none transition-opacity"></div>
-                <div id="time" class="font-bold text-[clamp(6rem,35vw,10rem)] leading-none tracking-[0.05em] relative z-10">
+                <div id="time" class="font-display text-[clamp(6rem,35vw,10rem)] leading-none tracking-[0.05em] relative z-10">
                     0:20
                 </div>
             </div>
@@ -132,13 +136,13 @@
 
             <div class="flex justify-center gap-12 pt-2">
                 <div class="text-center">
-                    <div class="font-bold text-4xl tracking-[0.05em]">
+                    <div class="font-display text-4xl tracking-[0.05em]">
                         <span id="currentRound">0</span><span class="text-text-secondary">/</span><span id="totalRounds">8</span>
                     </div>
                     <div class="text-xs uppercase tracking-[0.15em] text-text-muted mt-0.5">Round</div>
                 </div>
                 <div class="text-center">
-                    <div class="font-bold text-4xl tracking-[0.05em]">
+                    <div class="font-display text-4xl tracking-[0.05em]">
                         <span id="currentSet">1</span><span class="text-text-secondary">/</span><span id="totalSets">1</span>
                     </div>
                     <div class="text-xs uppercase tracking-[0.15em] text-text-muted mt-0.5">Set</div>
@@ -156,10 +160,10 @@
         </div>
     </div>
 
-    <div id="settingsOverlay" class="settings-overlay fixed inset-0 bg-bg-primary/90 z-50 opacity-0 invisible transition-opacity duration-300">
+    <div id="settingsOverlay" class="settings-overlay fixed inset-0 bg-bg-primary/90 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="settings-panel fixed bottom-0 left-0 right-0 bg-bg-secondary rounded-t-3xl p-6 pb-6 max-w-md mx-auto z-50 translate-y-full transition-transform duration-300" style="transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);">
             <div class="flex justify-between items-center mb-6">
-                <div class="font-bold text-2xl tracking-[0.1em]">SETTINGS</div>
+                <div class="font-display text-2xl tracking-[0.1em]">SETTINGS</div>
                 <button id="settingsClose" class="w-9 h-9 bg-bg-tertiary rounded-full flex items-center justify-center cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 stroke-text-secondary">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -169,19 +173,19 @@
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-bg-tertiary rounded-xl p-4">
                     <label class="block text-xs uppercase tracking-widest text-text-secondary mb-2">Work (sec)</label>
-                    <input type="number" id="workTime" value="20" min="5" max="300" class="w-full bg-transparent border-none outline-none text-4xl text-center font-bold focus:text-accent">
+                    <input type="number" id="workTime" value="20" min="5" max="300" class="w-full bg-transparent border-none outline-none text-4xl text-center font-display focus:text-accent">
                 </div>
                 <div class="bg-bg-tertiary rounded-xl p-4">
                     <label class="block text-xs uppercase tracking-widest text-text-secondary mb-2">Rest (sec)</label>
-                    <input type="number" id="restTime" value="10" min="5" max="300" class="w-full bg-transparent border-none outline-none text-4xl text-center font-bold focus:text-accent">
+                    <input type="number" id="restTime" value="10" min="5" max="300" class="w-full bg-transparent border-none outline-none text-4xl text-center font-display focus:text-accent">
                 </div>
                 <div class="bg-bg-tertiary rounded-xl p-4">
                     <label class="block text-xs uppercase tracking-widest text-text-secondary mb-2">Rounds</label>
-                    <input type="number" id="rounds" value="8" min="1" max="50" class="w-full bg-transparent border-none outline-none text-4xl text-center font-bold focus:text-accent">
+                    <input type="number" id="rounds" value="8" min="1" max="50" class="w-full bg-transparent border-none outline-none text-4xl text-center font-display focus:text-accent">
                 </div>
                 <div class="bg-bg-tertiary rounded-xl p-4">
                     <label class="block text-xs uppercase tracking-widest text-text-secondary mb-2">Sets</label>
-                    <input type="number" id="sets" value="1" min="1" max="20" class="w-full bg-transparent border-none outline-none text-4xl text-center font-bold focus:text-accent">
+                    <input type="number" id="sets" value="1" min="1" max="20" class="w-full bg-transparent border-none outline-none text-4xl text-center font-display focus:text-accent">
                 </div>
             </div>
         </div>
@@ -277,7 +281,7 @@
             elements.progressFill.style.width = progress + '%';
 
             const phaseEl = elements.phase;
-            phaseEl.className = 'font-bold text-xl tracking-[0.3em] px-6 py-2 bg-bg-secondary border rounded transition-all';
+            phaseEl.className = 'font-display text-xl tracking-[0.3em] px-6 py-2 bg-bg-secondary border rounded transition-all';
             
             if (state.phase === 'ready') {
                 phaseEl.textContent = 'GET READY';
@@ -408,14 +412,14 @@
         }
 
         function openSettings() {
-            elements.settingsOverlay.classList.remove('invisible', 'opacity-0');
-            elements.settingsOverlay.classList.add('opacity-100', 'visible');
+            elements.settingsOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            elements.settingsOverlay.classList.add('opacity-100');
             elements.settingsPanel.style.transform = 'translateY(0)';
         }
 
         function closeSettings() {
-            elements.settingsOverlay.classList.add('invisible', 'opacity-0');
-            elements.settingsOverlay.classList.remove('opacity-100', 'visible');
+            elements.settingsOverlay.classList.add('opacity-0', 'pointer-events-none');
+            elements.settingsOverlay.classList.remove('opacity-100');
             elements.settingsPanel.style.transform = 'translateY(100%)';
         }
 
