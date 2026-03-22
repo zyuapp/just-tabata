@@ -211,14 +211,20 @@
             oscillator.stop(audioContext.currentTime + duration / 1000);
         }
 
+        function speak(text) {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.1;
+            utterance.pitch = 1.0;
+            speechSynthesis.speak(utterance);
+        }
+
         function playTripleBeep() {
             playBeep(880, 100);
             setTimeout(() => playBeep(880, 100), 150);
             setTimeout(() => playBeep(1100, 200), 300);
-        }
-
-        function playStartBeep() {
-            playBeep(1200, 150);
         }
 
         function playEndBeep() {
@@ -325,7 +331,7 @@
                     state.phase = 'work';
                     state.currentRound = 1;
                     state.timeRemaining = state.workTime;
-                    playStartBeep();
+                    speak('Work');
                 }
                 state.isRunning = true;
                 state.isPaused = false;
@@ -353,15 +359,13 @@
             }
 
             if (state.timeRemaining <= 0) {
-                playBeep(880, 200);
-                
                 if (state.phase === 'work') {
                     if (state.currentRound >= state.rounds) {
                         if (state.currentSet >= state.sets) {
                             state.phase = 'done';
                             state.isRunning = false;
                             clearInterval(state.intervalId);
-                            playEndBeep();
+                            speak('Done');
                             elements.timerGlow.classList.remove('opacity-100', 'timer-glow-active');
                             elements.timerGlow.classList.add('opacity-0');
                         } else {
@@ -369,15 +373,18 @@
                             state.currentRound = 1;
                             state.phase = 'rest';
                             state.timeRemaining = state.restTime;
+                            speak('Rest');
                         }
                     } else {
                         state.currentRound++;
                         state.phase = 'rest';
                         state.timeRemaining = state.restTime;
+                        speak('Rest');
                     }
                 } else if (state.phase === 'rest') {
                     state.phase = 'work';
                     state.timeRemaining = state.workTime;
+                    speak('Work');
                 }
             }
 
@@ -437,6 +444,19 @@
         elements.restTime.addEventListener('change', loadSettings);
         elements.rounds.addEventListener('change', loadSettings);
         elements.sets.addEventListener('change', loadSettings);
+
+        const testWorkBtn = document.getElementById('testWork');
+        const testRestBtn = document.getElementById('testRest');
+
+        function speak(text) {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.1;
+            utterance.pitch = 1.0;
+            speechSynthesis.speak(utterance);
+        }
 
         loadSettings();
         updateDisplay();
