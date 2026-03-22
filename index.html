@@ -74,6 +74,13 @@
             color: var(--color-text-secondary);
         }
 
+        .phase-badge-countdown {
+            background: transparent;
+            border-color: #f59e0b;
+            color: #f59e0b;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+        }
+
         .phase-badge-done {
             background: transparent;
             border-color: var(--color-accent);
@@ -90,6 +97,10 @@
 
         .progress-fill-done {
             background: var(--color-accent);
+        }
+
+        .progress-fill-countdown {
+            background: #f59e0b;
         }
 
         .progress-shine::after {
@@ -292,6 +303,9 @@
             if (state.phase === 'ready') {
                 phaseEl.textContent = 'GET READY';
                 phaseEl.classList.add('phase-badge-ready');
+            } else if (state.phase === 'countdown') {
+                phaseEl.textContent = 'GET READY';
+                phaseEl.classList.add('phase-badge-countdown');
             } else if (state.phase === 'work') {
                 phaseEl.textContent = 'WORK';
                 phaseEl.classList.add('phase-badge-work');
@@ -308,6 +322,8 @@
                 elements.progressFill.classList.add('progress-fill-rest');
             } else if (state.phase === 'done') {
                 elements.progressFill.classList.add('progress-fill-done');
+            } else if (state.phase === 'countdown') {
+                elements.progressFill.classList.add('progress-fill-countdown');
             } else {
                 elements.progressFill.classList.add('bg-accent');
             }
@@ -328,10 +344,9 @@
 
             if (!state.isRunning) {
                 if (state.phase === 'ready') {
-                    state.phase = 'work';
-                    state.currentRound = 1;
-                    state.timeRemaining = state.workTime;
-                    speak('Work');
+                    state.phase = 'countdown';
+                    state.timeRemaining = 3;
+                    speak('Get Ready');
                 }
                 state.isRunning = true;
                 state.isPaused = false;
@@ -381,6 +396,11 @@
                         state.timeRemaining = state.restTime;
                         speak('Rest');
                     }
+                } else if (state.phase === 'countdown') {
+                    state.phase = 'work';
+                    state.currentRound = 1;
+                    state.timeRemaining = state.workTime;
+                    speak('Work');
                 } else if (state.phase === 'rest') {
                     state.phase = 'work';
                     state.timeRemaining = state.workTime;
